@@ -37,7 +37,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 DEBUG = True
 
-ALLOWED_HOSTS = [os.getenv("Host"), "localhost"]
+ALLOWED_HOSTS = ["psi-back.onrender.com", "localhost"]
 
 
 # Application definition
