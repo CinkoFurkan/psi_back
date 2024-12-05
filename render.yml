@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: psinous-web
+    env: python
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+    startCommand: "gunicorn --bind 0.0.0.0:8000 psinous.wsgi:application --workers=3"
+    envVars:
+      DJANGO_SETTINGS_MODULE: "psinous.settings"  # Ensure this matches your settings module name
+    staticPublishPath: staticfiles/
+    routes:
+      - type: static
+        path: /static
+        source: /static  # Serve static files from the static directory
+      - type: static
+        path: /media
+        source: /media  # Serve media files from the media directory
