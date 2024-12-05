@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'psinous_app',
     'django.contrib.sites',
+    'corsheaders',
 ]
 SITE_ID = 1
 SITE_DOMAIN = os.getenv("SITE_DOMAIN", "127.0.0.1:8000")  
@@ -72,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'psinous.urls'
@@ -146,7 +148,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 MEDIA_URL = '/media/'
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STORAGES = {
