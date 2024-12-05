@@ -35,14 +35,15 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["psi-back.onrender.com", "localhost"]
 
 
 # Application definition
 INSTALLED_APPS = [
     "jazzmin",
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,7 +53,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'psinous_app',
     'django.contrib.sites',
-    'corsheaders',
 ]
 SITE_ID = 1
 SITE_DOMAIN = os.getenv("SITE_DOMAIN", "127.0.0.1:8000")  
@@ -168,9 +168,9 @@ STORAGES = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
+CORS_ALLOWED_ORIGINS = ["https://psinous.onrender.com",
     "http://localhost:3000",
-    "https://psinous.onrender.com",  
+      
 ]
 
 JAZZMIN_SETTINGS = {
