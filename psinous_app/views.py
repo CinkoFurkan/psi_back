@@ -44,7 +44,7 @@ def event(request):
             "title": i.title,
             "location" : i.location,
             "registration_link": i.registration_link,
-            "summary_link": i.summary_link if i.summary_link else None,
+            "summary_link": i.summary_link.url if i.summary_link else None,
             "event_date" : i.event_date,
             "is_active" : i.is_active,
             "image": i.image.url if i.image else None
