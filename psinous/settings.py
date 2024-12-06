@@ -35,7 +35,7 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["psi-back.onrender.com", "localhost"]
 
@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 ]
 SITE_ID = 1
-SITE_DOMAIN = "https://psi-back.onrender.com"  
+SITE_DOMAIN = os.getenv("SITE_DOMAIN", "127.0.0.1:8000")  
 
 
 REST_FRAMEWORK = {
