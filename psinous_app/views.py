@@ -30,7 +30,8 @@ def about(request):
         "about": [{
             "text": i.text,
             "title": i.title,
-            "image": i.image.url if i.image else None
+            "image": i.image.url if i.image else None,
+            "phone_image": i.phone_image.url if i.phone_image else None,
         } for i in about]
     }
 
