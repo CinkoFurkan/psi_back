@@ -348,7 +348,7 @@ def sponsor(request):
             {
                 'id': sponsor.id,
                 "text": sponsor.text,
-                'image': sponsor.image.url if sponsor.image and hasattr(sponsor.image, 'url') else None,
+                'image': sponsor.image.url if sponsor.image else None,
                 'position': sponsor.position
             } for sponsor in sponsors
         ]
