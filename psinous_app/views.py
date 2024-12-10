@@ -48,7 +48,8 @@ def event(request):
             "summary_link": i.summary_link.url if i.summary_link else None,
             "event_date" : i.event_date,
             "is_active" : i.is_active,
-            "image": i.image.url if i.image else None
+            "image": i.image.url if i.image else None,
+            "event_finish_date": i.event_finish_date if i.event_finish_date else None,
         } for i in event]
     }
 

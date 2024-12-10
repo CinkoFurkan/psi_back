@@ -46,6 +46,7 @@ class Event(models.Model):
     registration_link= models.URLField(max_length=255)
     summary_link = models.FileField(upload_to='event_summaries/', blank=True, null=True) 
     event_date= models.DateTimeField()
+    event_finish_date= models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     image = models.ImageField(upload_to='event/', blank=True, null=True)
 
