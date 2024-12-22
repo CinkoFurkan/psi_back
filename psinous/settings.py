@@ -103,16 +103,9 @@ WSGI_APPLICATION = 'psinous.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'psinous',
-        'USER': 'postgres',
-        'PASSWORD': '122334',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.parse(os.getenv('DATABASE'))
 }
-DATABASES['default'] = dj_database_url.parse(os.getenv('DATABASE'))
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
