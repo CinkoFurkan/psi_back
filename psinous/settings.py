@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 from dotenv import load_dotenv
 
@@ -103,11 +104,15 @@ WSGI_APPLICATION = 'psinous.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'psinous',
+        'USER': 'postgres',
+        'PASSWORD': '122334',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
-
+DATABASES['default'] = dj_database_url.parse(os.getenv('DATABASE'))
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
