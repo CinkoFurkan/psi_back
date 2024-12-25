@@ -1,16 +1,15 @@
 services:
   - type: web
-    name: psinous-web
+    name: django-web-service
     env: python
-    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput"
-    startCommand: "gunicorn --bind 0.0.0.0:8000 psinous.wsgi:application --workers=3"
+    plan: free
+    buildCommand: ./build.sh
+    startCommand: gunicorn project_name.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
-      DJANGO_SETTINGS_MODULE: "psinous.settings"  # Ensure this matches your settings module name
-    staticPublishPath: staticfiles/
-    routes:
-      - type: static
-        path: /static
-        source: /static  # Serve static files from the static directory
-      - type: static
-        path: /media
-        source: /media  # Serve media files from the media directory
+      - key: DATABASE_URL
+        value: postgresql://psinous_user:qFfprgCc12pFSXgFPcMJ2F2qiOfbRVzj@dpg-ctjvggjqf0us739eajhg-a/psinous
+      - key: DJANGO_SECRET_KEY
+        value: django-insecure-2a$shmv=6m0tva@0b-1@)rpq)^x-@m20h=%1n0a&yn!id!7zh=
+      - key: DJANGO_DEBUG
+        value: "false"
+    staticPublishPath: staticfiles
