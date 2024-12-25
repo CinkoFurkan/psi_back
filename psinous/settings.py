@@ -166,11 +166,8 @@ STORAGES = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-    "https://www.psinous.org",
-    "https://psinous.onrender.com",
-    "http://localhost:3000",
-]
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 JAZZMIN_SETTINGS = {
 
