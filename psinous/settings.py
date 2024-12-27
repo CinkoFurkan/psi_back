@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'psinous_app',
     'django.contrib.sites',
+    'storages',
 ]
 SITE_ID = 1
 SITE_DOMAIN = os.getenv("SITE_DOMAIN", "127.0.0.1:8000")  
@@ -103,8 +104,9 @@ WSGI_APPLICATION = 'psinous.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(os.getenv('DATABASE'))
+    'default': dj_database_url.config(default=os.getenv('DATABASE'))
 }
+
 
 
 # Password validation
@@ -145,9 +147,19 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+# AWS S3 settings
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')  # Use environment variables for security
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME', 'us-east-1')  # Change to your region if different
+AWS_S3_SIGNATURE_VERSION = 's3v4'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Media files settings
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+
+# Media URL (For referencing in your app)
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
 
 STORAGES = {
     "staticfiles": {
