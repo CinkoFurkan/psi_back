@@ -185,7 +185,7 @@ def member_info(request, id=None, year=None):
 @api_view(["GET"])
 def blog(request):
 
-    blogs = Blog.objects.all()
+    blogs = Blog.objects.all().order_by("id")
     content = {
             "blogs" :  [{
                 "blog_id": i.id,
