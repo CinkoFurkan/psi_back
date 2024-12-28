@@ -25,7 +25,7 @@ def titles(request):
 
 @api_view(["GET"])
 def about(request):
-    about = About.objects.all().order_by("")
+    about = About.objects.all().order_by(" ")
     content = {
         "about": [{
             "text": i.text,
