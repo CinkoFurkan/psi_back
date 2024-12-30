@@ -332,6 +332,7 @@ def mail_sender(request=None, message_id=None):
     email.content_subtype = "html"
 
     email.send()
+    
 @api_view(['PUT'])
 def like_view(request):
     new_like =  request.data.get('new_like')
