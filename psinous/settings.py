@@ -36,7 +36,7 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["psi-back.onrender.com", "localhost", "127.0.0.1"]
 PORT = int(os.environ.get("PORT", 8000))
