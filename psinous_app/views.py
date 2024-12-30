@@ -301,7 +301,7 @@ def mail_sender(request=None, message_id=None):
 
     image_data = ""
     if message_obj.image:
-        image_path = message_obj.image.path
+        image_path = message_obj.image.url
         with open(image_path, "rb") as img_file:
             image_data = base64.b64encode(img_file.read()).decode('utf-8')
     
