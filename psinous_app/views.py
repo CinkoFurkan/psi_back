@@ -9,6 +9,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
 import base64
+import requests
 
 #ibo was here
 
@@ -292,7 +293,7 @@ def mail_sender(request=None, message_id=None):
             message_obj = Message.objects.latest('id')
     except Message.DoesNotExist:
         print("Message not found.")
-        return  
+        return
 
     subject = message_obj.subject
     message_text = message_obj.message
@@ -301,10 +302,16 @@ def mail_sender(request=None, message_id=None):
 
     image_data = ""
     if message_obj.image:
-        image_path = message_obj.image.url
-        with open(image_path, "rb") as img_file:
-            image_data = base64.b64encode(img_file.read()).decode('utf-8')
-    
+        try:
+            image_url = message_obj.image.url 
+            response = requests.get(image_url)
+            if response.status_code == 200:
+                image_data = base64.b64encode(response.content).decode('utf-8')
+            else:
+                print(f"Failed to fetch the image. HTTP Status: {response.status_code}")
+        except Exception as e:
+            print(f"Error fetching image: {e}")
+
     html_message = render_to_string('index.html', {
         'subject': subject,
         'title': title,
@@ -313,20 +320,18 @@ def mail_sender(request=None, message_id=None):
         'image_data': image_data,
     })
 
-    from_email = "PsiNous Öğrenci Topluluğu <{}>".format(settings.EMAIL_HOST_USER)
+    from_email = f"PsiNous Öğrenci Topluluğu <{settings.EMAIL_HOST_USER}>"
 
     email = EmailMessage(
         subject=subject,
         body=html_message,
         from_email=from_email,
-        to=[settings.EMAIL_HOST_USER], 
-        bcc=user_emails  
+        to=[settings.EMAIL_HOST_USER],
+        bcc=user_emails
     )
-    
     email.content_subtype = "html"
 
     email.send()
-
 @api_view(['PUT'])
 def like_view(request):
     new_like =  request.data.get('new_like')
