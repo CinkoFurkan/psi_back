@@ -185,28 +185,30 @@ def member_info(request, id=None, year=None):
 
 @api_view(["GET"])
 def blog(request):
-
-    blogs = Blog.objects.all().order_by("id")
+    blogs = Blog.objects.filter(is_published=True).order_by("id")
+    
     content = {
-            "blogs" :  [{
-                "blog_id": i.id,
-                "title": i.title,
-                "short_text": i.short_text,
-                "text": i.text,
-                "writer_f": i.writer.first_name,
-                "writer_l": i.writer.last_name,
-                "writer_title": i.writer.title,
-                "writer_image": i.writer.image.url,
-                "writer_id": i.writer.id,
-                "created_at": i.created_at,
-                "updated_at": i.updated_at,
-                "is_published": i.is_published,
-                "views_count": i.views_count,
-                "likes_count": i.likes_count,
-                "image": i.image.url if i.image else None
-            } for i in blogs]
-        }
+        "blogs": [{
+            "blog_id": i.id,
+            "title": i.title,
+            "short_text": i.short_text,
+            "text": i.text,
+            "writer_f": i.writer.first_name,
+            "writer_l": i.writer.last_name,
+            "writer_title": i.writer.title,
+            "writer_image": i.writer.image.url,
+            "writer_id": i.writer.id,
+            "created_at": i.created_at,
+            "updated_at": i.updated_at,
+            "is_published": i.is_published,
+            "views_count": i.views_count,
+            "likes_count": i.likes_count,
+            "image": i.image.url if i.image else None
+        } for i in blogs]
+    }
+
     return Response(content, status=status.HTTP_200_OK)
+
 
 @api_view(["GET"])
 def blog_detail(request, id=None):
